@@ -23,7 +23,7 @@ url = 'https://in.investing.com/commodities/iron-ore-62-cfr-futures-historical-d
 driver.get(url)
 
 # Wait until the table with prices is available
-WebDriverWait(driver, 60).until(
+WebDriverWait(driver, 40).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "table.freeze-column-w-1.w-full.overflow-x-auto.text-xs.leading-4"))
 )
 
