@@ -10,8 +10,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import csv
 
+
 # Path to the chromedriver
-path_to_chromedriver = r'C:\Users\abhim\Downloads\chromedriver-win64\chromedriver-win64\chromedriver.exe'
+path_to_chromedriver = r'C:\Users\samra\OneDrive\Desktop\drivers\chromedriver.exe'
 s = Service(path_to_chromedriver)
 
 # Initialize webdriver
@@ -21,7 +22,8 @@ driver = webdriver.Chrome(service=s, options=Options())
 url = 'https://in.investing.com/commodities/iron-ore-62-cfr-futures-historical-data'
 driver.get(url)
 
-WebDriverWait(driver, 30).until(
+# Wait until the table with prices is available
+WebDriverWait(driver, 60).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, "table.freeze-column-w-1.w-full.overflow-x-auto.text-xs.leading-4"))
 )
 
@@ -36,7 +38,6 @@ rows = table.find_elements(By.TAG_NAME, "tr")[1:]  # Skip the header row
 # Open CSV to write data
 with open("iron_ore_data.csv", "w", newline='', encoding="utf-8") as f:
     writer = csv.writer(f)
-    
     # Write headers
     writer.writerow(headers)
     
